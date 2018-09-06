@@ -1,0 +1,227 @@
+   0.0 TEL | Telepresence 0.92 launched at Thu Sep  6 14:29:05 2018
+   0.0 TEL |   /usr/local/bin/telepresence --swap-deployment backend-service --expose 8080 --run go run main.go --mount false
+   0.0 TEL | Platform: darwin
+   0.0 TEL | Python 3.7.0 (default, Jul 23 2018, 20:22:55)
+   0.0 TEL | [Clang 9.1.0 (clang-902.0.39.2)]
+   0.0 TEL | [1] Running: uname -a
+   0.0   1 | Darwin AMAC02WG135HTD6 17.7.0 Darwin Kernel Version 17.7.0: Thu Jun 21 22:53:14 PDT 2018; root:xnu-4570.71.2~1/RELEASE_X86_64 x86_64
+   0.0 TEL | BEGIN SPAN main.py:41(main)
+   0.0 TEL | BEGIN SPAN startup.py:57(__init__)
+   0.0 TEL | [2] Capturing: kubectl version --short
+   0.6 TEL | [3] Capturing: kubectl config current-context
+   0.7 TEL | [4] Capturing: kubectl config view -o json
+   0.8 TEL | Command: kubectl 1.11.1
+   0.8 TEL | Context: k8s.lslondon.internal, namespace: telepresence-demo, version: 1.9.9
+   0.8 TEL | END SPAN startup.py:57(__init__)    0.7s
+   0.8 TEL | [5] Capturing: ssh -V
+   0.8 TEL | [6] Running: sudo -n echo -n
+   0.8 >>> | Starting proxy with method 'vpn-tcp', which has the following limitations: All processes are affected, only one telepresence can run per machine, and you can't use other VPNs. You may need to add cloud hosts and headless services with --also-proxy. For a full list of method limitations see https://telepresence.io/reference/methods.html
+   0.9 >>> | Volumes are rooted at $TELEPRESENCE_ROOT. See https://telepresence.io/howto/volumes.html for details.
+   0.9 TEL | [7] Capturing: kubectl --context k8s.lslondon.internal --namespace telepresence-demo get pods telepresence-connectivity-check --ignore-not-found
+   2.1 TEL | Scout info: {'latest_version': '0.92', 'application': 'telepresence', 'notices': []}
+   2.1 TEL | BEGIN SPAN deployment.py:120(supplant_deployment)
+   2.1 TEL | BEGIN SPAN remote.py:74(get_deployment_json)
+   2.1 TEL | [8] Capturing: kubectl --context k8s.lslondon.internal --namespace telepresence-demo get deployment -o json --export backend-service
+   2.6 TEL | END SPAN remote.py:74(get_deployment_json)    0.5s
+   2.6 TEL | [9] Running: kubectl --context k8s.lslondon.internal --namespace telepresence-demo delete deployment backend-service-4c6ed1a93346454a953dfbdfeb54ea5a --ignore-not-found
+   3.2 TEL | [10] Running: kubectl --context k8s.lslondon.internal --namespace telepresence-demo apply -f -
+   4.1  10 | deployment.extensions/backend-service-4c6ed1a93346454a953dfbdfeb54ea5a created
+   4.1 TEL | [11] Running: kubectl --context k8s.lslondon.internal --namespace telepresence-demo scale deployment backend-service --replicas=0
+   4.7  11 | deployment.extensions/backend-service scaled
+   4.7 TEL | END SPAN deployment.py:120(supplant_deployment)    2.6s
+   4.7 TEL | BEGIN SPAN remote.py:153(get_remote_info)
+   4.7 TEL | BEGIN SPAN remote.py:74(get_deployment_json)
+   4.7 TEL | [12] Capturing: kubectl --context k8s.lslondon.internal --namespace telepresence-demo get deployment -o json --export --selector=telepresence=4c6ed1a93346454a953dfbdfeb54ea5a
+   5.2 TEL | END SPAN remote.py:74(get_deployment_json)    0.5s
+   5.2 TEL | Searching for Telepresence pod:
+   5.2 TEL |   with name backend-service-4c6ed1a93346454a953dfbdfeb54ea5a-*
+   5.2 TEL |   with labels {'app': 'backend-service', 'telepresence': '4c6ed1a93346454a953dfbdfeb54ea5a'}
+   5.2 TEL | [13] Capturing: kubectl --context k8s.lslondon.internal --namespace telepresence-demo get pod -o json --export --selector=telepresence=4c6ed1a93346454a953dfbdfeb54ea5a
+   5.8 TEL | Checking backend-service-4c6ed1a93346454a953dfbdfeb54ea5a-6b5bd65f77lbfd
+   5.8 TEL | Looks like we've found our pod!
+   5.8 TEL | BEGIN SPAN remote.py:112(wait_for_pod)
+   5.8 TEL | [14] Capturing: kubectl --context k8s.lslondon.internal --namespace telepresence-demo get pod backend-service-4c6ed1a93346454a953dfbdfeb54ea5a-6b5bd65f77lbfd -o json
+   6.2 TEL | END SPAN remote.py:112(wait_for_pod)    0.5s
+   6.2 TEL | END SPAN remote.py:153(get_remote_info)    1.5s
+   6.2 TEL | BEGIN SPAN __init__.py:38(connect)
+   6.2 TEL | [15] Launching kubectl logs: kubectl --context k8s.lslondon.internal --namespace telepresence-demo logs -f backend-service-4c6ed1a93346454a953dfbdfeb54ea5a-6b5bd65f77lbfd --container backend-service
+   6.3 TEL | [16] Launching kubectl port-forward: kubectl --context k8s.lslondon.internal --namespace telepresence-demo port-forward backend-service-4c6ed1a93346454a953dfbdfeb54ea5a-6b5bd65f77lbfd 64583:8022
+   6.3 TEL | [17] Running: ssh -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -p 64583 telepresence@localhost /bin/true
+   6.3 TEL | [17] exit 255 in 0.07 secs.
+   6.6 TEL | [18] Running: ssh -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -p 64583 telepresence@localhost /bin/true
+   6.6 TEL | [18] exit 255 in 0.06 secs.
+   6.8  15 | Listening...
+   6.8  15 | 2018-09-06T13:29:11+0000 [-] Loading ./forwarder.py...
+   6.8  15 | 2018-09-06T13:29:11+0000 [-] /etc/resolv.conf changed, reparsing
+   6.8  15 | 2018-09-06T13:29:11+0000 [-] Resolver added ('100.64.0.10', 53) to server list
+   6.8  15 | 2018-09-06T13:29:11+0000 [-] SOCKSv5Factory starting on 9050
+   6.8  15 | 2018-09-06T13:29:11+0000 [socks.SOCKSv5Factory#info] Starting factory <socks.SOCKSv5Factory object at 0x7febd0a893c8>
+   6.8  15 | 2018-09-06T13:29:11+0000 [-] DNSDatagramProtocol starting on 9053
+   6.8  15 | 2018-09-06T13:29:11+0000 [-] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7febd0a897b8>
+   6.8  15 | 2018-09-06T13:29:11+0000 [-] Loaded.
+   6.8  15 | 2018-09-06T13:29:11+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] twistd 18.7.0 (/usr/bin/python3.6 3.6.1) starting up.
+   6.8  15 | 2018-09-06T13:29:11+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] reactor class: twisted.internet.epollreactor.EPollReactor.
+   6.9 TEL | [19] Running: ssh -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -p 64583 telepresence@localhost /bin/true
+   7.0 TEL | [19] exit 255 in 0.06 secs.
+   7.2 TEL | [20] Running: ssh -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -p 64583 telepresence@localhost /bin/true
+   7.3  16 | Forwarding from 127.0.0.1:64583 -> 8022
+   7.3  16 | Forwarding from [::1]:64583 -> 8022
+   7.3  16 | Handling connection for 64583
+   8.1 >>> | Forwarding remote port 8080 to local port 8080.
+   8.1 TEL | [21] Launching SSH port forward (exposed ports): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -p 64583 telepresence@localhost -R '*:8080:127.0.0.1:8080'
+   8.1 >>> | 
+   8.1 TEL | Launching Web server for proxy poll
+   8.1 TEL | [22] Launching SSH port forward (socks and proxy poll): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -p 64583 telepresence@localhost -L127.0.0.1:64599:127.0.0.1:9050 -R9055:127.0.0.1:64600
+   8.1 TEL | END SPAN __init__.py:38(connect)    1.9s
+   8.1 TEL | BEGIN SPAN remote_env.py:66(get_remote_env)
+   8.1 TEL | [23] Capturing: kubectl --context k8s.lslondon.internal --namespace telepresence-demo exec backend-service-4c6ed1a93346454a953dfbdfeb54ea5a-6b5bd65f77lbfd --container backend-service -- python3 -c 'import json, os; print(json.dumps(dict(os.environ)))'
+   8.2  16 | Handling connection for 64583
+   8.2  16 | Handling connection for 64583
+   9.4 TEL | [23] captured in 1.27 secs.
+   9.4 TEL | END SPAN remote_env.py:66(get_remote_env)    1.3s
+   9.4 TEL | BEGIN SPAN mount.py:32(mount_remote_volumes)
+   9.4 TEL | [24] Capturing: sshfs -p 64583 -F /dev/null -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null telepresence@localhost:/ /tmp/tel-o3tbj7et/fs
+   9.5  16 | Handling connection for 64583
+  10.5 TEL | [24] captured in 1.08 secs.
+  10.5 TEL | END SPAN mount.py:32(mount_remote_volumes)    1.1s
+  10.5 TEL | BEGIN SPAN vpn.py:236(connect_sshuttle)
+  10.5 TEL | BEGIN SPAN vpn.py:80(get_proxy_cidrs)
+  10.5 TEL | END SPAN vpn.py:80(get_proxy_cidrs)    0.0s
+  10.5 TEL | [25] Launching sshuttle: sshuttle-telepresence -v --dns --method auto -e 'ssh -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -F /dev/null' --to-ns 127.0.0.1:9053 -r telepresence@localhost:64583 100.96.2.0/24 100.64.0.0/13 100.96.6.0/24 100.96.7.0/24 100.96.0.0/24 100.96.3.0/24 100.96.4.0/24
+  10.5 TEL | BEGIN SPAN vpn.py:277(connect_sshuttle,sshuttle-wait)
+  10.5 TEL | [26] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence0'"'"')'
+  10.5  26 | Traceback (most recent call last):
+  10.5  26 |   File "<string>", line 1, in <module>
+  10.5  26 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  10.5 TEL | [26] exit 1 in 0.05 secs.
+  10.5  25 | Starting sshuttle proxy.
+  10.6  25 | firewall manager: Starting firewall with Python version 3.7.0
+  10.6  25 | firewall manager: ready method name pf.
+  10.6  25 | IPv6 enabled: True
+  10.6  25 | UDP enabled: False
+  10.6  25 | DNS enabled: True
+  10.6  25 | TCP redirector listening on ('::1', 12300, 0, 0).
+  10.6  25 | TCP redirector listening on ('127.0.0.1', 12300).
+  10.6  25 | DNS listening on ('::1', 12300, 0, 0).
+  10.6  25 | DNS listening on ('127.0.0.1', 12300).
+  10.6  25 | Starting client with Python version 3.7.0
+  10.6  25 | c : connecting to server...
+  10.6 TEL | [27] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence1'"'"')'
+  10.7  27 | Traceback (most recent call last):
+  10.7  27 |   File "<string>", line 1, in <module>
+  10.7  27 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  10.7 TEL | [27] exit 1 in 0.05 secs.
+  10.7  16 | Handling connection for 64583
+  10.8 TEL | [28] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence2'"'"')'
+  10.8  28 | Traceback (most recent call last):
+  10.8  28 |   File "<string>", line 1, in <module>
+  10.8  28 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  10.8 TEL | [28] exit 1 in 0.05 secs.
+  10.9 TEL | [29] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence3'"'"')'
+  11.0  29 | Traceback (most recent call last):
+  11.0  29 |   File "<string>", line 1, in <module>
+  11.0  29 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  11.0 TEL | [29] exit 1 in 0.06 secs.
+  11.1  25 | Warning: Permanently added '[localhost]:64583' (ECDSA) to the list of known hosts.
+  11.1 TEL | [30] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence4'"'"')'
+  11.1  30 | Traceback (most recent call last):
+  11.1  30 |   File "<string>", line 1, in <module>
+  11.1  30 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  11.1 TEL | [30] exit 1 in 0.06 secs.
+  11.2 TEL | [31] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence5'"'"')'
+  11.3  31 | Traceback (most recent call last):
+  11.3  31 |   File "<string>", line 1, in <module>
+  11.3  31 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  11.3 TEL | [31] exit 1 in 0.05 secs.
+  11.4 TEL | [32] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence6'"'"')'
+  11.4  32 | Traceback (most recent call last):
+  11.4  32 |   File "<string>", line 1, in <module>
+  11.4  32 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  11.4 TEL | [32] exit 1 in 0.05 secs.
+  11.6 TEL | [33] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence7'"'"')'
+  11.7  25 | Starting server with Python version 3.6.1
+  11.7  25 |  s: latency control setting = True
+  11.7  25 |  s: available routes:
+  11.7  25 |  s:   2/100.96.0.0/11
+  11.7  25 | c : Connected.
+  11.7  25 | firewall manager: setting up.
+  11.7  25 | >> pfctl -s Interfaces -i lo -v
+  11.7  25 | >> pfctl -s all
+  11.7  25 | >> pfctl -a sshuttle6-12300 -f /dev/stdin
+  11.7  25 | >> pfctl -E
+  11.7  25 | >> pfctl -s Interfaces -i lo -v
+  11.7  25 | >> pfctl -s all
+  11.7  25 | >> pfctl -a sshuttle-12300 -f /dev/stdin
+  11.7  33 | Traceback (most recent call last):
+  11.7  33 |   File "<string>", line 1, in <module>
+  11.7  33 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  11.7  25 | >> pfctl -E
+  11.7 TEL | [33] exit 1 in 0.18 secs.
+  11.8 TEL | [34] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence8'"'"')'
+  11.9  25 | c : DNS request from ('10.136.40.48', 62762) to None: 36 bytes
+  12.0  15 | 2018-09-06T13:29:17+0000 [stdout#info] Set DNS suffix we filter out to: [()]
+  12.0  15 | 2018-09-06T13:29:17+0000 [stdout#info] Result for b'hellotelepresence8' is ['127.0.0.1']
+  12.0 TEL | [35] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence9'"'"')'
+  12.0  25 | c : DNS request from ('10.136.40.48', 59208) to None: 36 bytes
+  12.1  15 | 2018-09-06T13:29:18+0000 [stdout#info] Result for b'hellotelepresence9' is ['127.0.0.1']
+  13.1 TEL | [36] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence10'"'"')'
+  13.2  25 | c : DNS request from ('10.136.40.48', 50164) to None: 37 bytes
+  13.3  15 | 2018-09-06T13:29:19+0000 [stdout#info] Result for b'hellotelepresence10' is ['127.0.0.1']
+  13.3 TEL | END SPAN vpn.py:277(connect_sshuttle,sshuttle-wait)    2.8s
+  13.3 TEL | END SPAN vpn.py:236(connect_sshuttle)    2.8s
+  13.9  25 | c : DNS request from ('10.136.40.48', 22715) to None: 89 bytes
+  13.9  25 | c : DNS request from ('10.136.40.48', 30259) to None: 41 bytes
+  14.0  15 | 2018-09-06T13:29:19+0000 [stdout#info] A query: b'a3410ba4cb1d711e89b0502b4c7623b6-1746524648.us-east-1.elb.amazonaws.com'
+  14.0  15 | 2018-09-06T13:29:19+0000 [stdout#info] A query: b'maxcdn.bootstrapcdn.com'
+  14.0  15 | 2018-09-06T13:29:19+0000 [stdout#info] Result for b'maxcdn.bootstrapcdn.com' is ['209.197.3.15']
+  14.0  15 | 2018-09-06T13:29:19+0000 [stdout#info] Result for b'a3410ba4cb1d711e89b0502b4c7623b6-1746524648.us-east-1.elb.amazonaws.com' is ['18.210.197.146', '52.2.196.236', '52.70.109.71']
+  14.0 TEL | Everything launched. Waiting to exit...
+  14.0 TEL | BEGIN SPAN __init__.py:497(wait_for_exit)
+  18.1  25 | c : DNS request from ('10.136.40.48', 32621) to None: 36 bytes
+  18.2  15 | 2018-09-06T13:29:24+0000 [stdout#info] A query: b'phd.aws.amazon.com'
+  18.3  15 | 2018-09-06T13:29:24+0000 [stdout#info] Result for b'phd.aws.amazon.com' is ['52.94.208.110']
+  30.9 TEL | [37] Running: sudo -n echo -n
+  35.6 TEL | (proxy checking local liveness)
+  35.7  15 | 2018-09-06T13:29:41+0000 [Poll#info] Checkpoint
+  61.0 TEL | [38] Running: sudo -n echo -n
+  65.6 TEL | (proxy checking local liveness)
+  65.7  15 | 2018-09-06T13:30:11+0000 [Poll#info] Checkpoint
+  71.3 >>> | Exit cleanup in progress
+  71.3 TEL | (Cleanup) Terminate local process
+  71.3 TEL | Killing local process...
+  71.3  25 | >> pfctl -a sshuttle6-12300 -F all
+  71.3 TEL | [21] exit 0
+  71.3 TEL | [22] exit 0
+  71.3 TEL | [15] exit -2
+  71.3 TEL | [16] exit 0
+  71.3 TEL | (Cleanup) Unmount remote filesystem
+  71.3 TEL | [39] Capturing: umount -f /tmp/tel-o3tbj7et/fs
+  71.3  25 | >> pfctl -X 4657172598968177955
+  71.3  25 | >> pfctl -a sshuttle-12300 -F all
+  71.3  25 | >> pfctl -X 4657172598968177859
+  71.3  25 | c :
+  71.3  25 | c : Keyboard interrupt: exiting.
+  71.3 TEL | [25] exit 1
+  71.6  39 | umount: /tmp/tel-o3tbj7et/fs: not currently mounted
+  71.6 TEL | [39] exit 1 in 0.32 secs.
+  71.6 TEL | (Cleanup) Unmount remote filesystem failed:
+  71.6 TEL | (Cleanup)   Command '['umount', '-f', '/tmp/tel-o3tbj7et/fs']' returned non-zero exit status 1.
+  71.6 TEL | (Cleanup) Re-scale original deployment
+  71.6 TEL | [40] Running: kubectl --context k8s.lslondon.internal --namespace telepresence-demo scale deployment backend-service --replicas=1
+  72.5  40 | deployment.extensions/backend-service scaled
+  72.5 TEL | (Cleanup) Delete new deployment
+  72.5 TEL | [41] Running: kubectl --context k8s.lslondon.internal --namespace telepresence-demo delete deployment backend-service-4c6ed1a93346454a953dfbdfeb54ea5a
+  73.0  41 | deployment.extensions "backend-service-4c6ed1a93346454a953dfbdfeb54ea5a" deleted
+  73.1 TEL | (Cleanup) Kill background items
+  73.1 TEL | Killing BackgroundProcess [25] sshuttle
+  73.1 TEL | Killing BackgroundProcess [22] SSH port forward (socks and proxy poll)
+  73.1 TEL | Killing BackgroundThread Web server for proxy poll
+  73.2 TEL | Killing BackgroundProcess [21] SSH port forward (exposed ports)
+  73.2 TEL | Killing BackgroundProcess [16] kubectl port-forward
+  73.2 TEL | Killing BackgroundProcess [15] kubectl logs
+  73.2 TEL | Killing BackgroundThread sudo privileges holder
+  74.1 TEL | (sudo privileges holder thread exiting)
+  74.1 TEL | (Cleanup) Stop time tracking
+  74.1 TEL | END SPAN main.py:41(main)   74.0s
+  74.1 TEL | (Cleanup) Remove temporary directory
+  74.2 TEL | (Cleanup) Save caches
